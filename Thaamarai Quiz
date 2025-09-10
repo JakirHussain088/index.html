@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>தாமரை Quiz</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2e6ff; text-align: center; padding: 20px; }
+    .quiz-container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+    h1 { color: #800080; }
+    .question { margin-bottom: 15px; font-weight: bold; }
+    .options label { display: block; margin: 5px; }
+    button { margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #800080; color: white; cursor: pointer; }
+    button:hover { background: #a64ca6; }
+    #result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h1>🎶 தாமரை Quiz 🎶</h1>
+
+    <div id="quiz"></div>
+    <button onclick="submitQuiz()">Submit</button>
+    <div id="result"></div>
+  </div>
+
+  <!-- Background YouTube Song -->
+  <iframe width="0" height="0" 
+    src="https://www.youtube.com/embed/6s5mQ3V3QdQ?autoplay=1&loop=1&playlist=6s5mQ3V3QdQ" 
+    frameborder="0" allow="autoplay">
+  </iframe>
+
+  <script>
+    const quizData = [
+      {
+        question: "1. இதிலிருந்து தாமரை பாடல்கள் எவை?",
+        options: ["A. ஒரு மாலை", "B. முன்பே வா", "C. தொட்டு தொட்டு", "D. இதயம் இந்த இதயம்"],
+        answer: "A. ஒரு மாலை"
+      },
+      {
+        question: "2. தாமரை பாடல்களில் ஆங்கிலத்தை பயன்படுத்துவதில் பிரபலமானவர்",
+        options: ["A. உண்மை", "B. தவறு"],
+        answer: "B. தவறு"
+      },
+      {
+        question: "3. தாமரை எதற்கு பிரபலமானவர்",
+        options: ["A. உணர்ச்சி மற்றும் காதல் பாடல்கள்", "B. நகைச்சுவை பாடல்கள்", "C. ஆக்சன் பாடல்கள்", "D. ரேப் பாடல்கள்"],
+        answer: "A. உணர்ச்சி மற்றும் காதல் பாடல்கள்"
+      },
+      {
+        question: "4. தாமரை ஒரு பெண்கலைஞர்; இந்த துறையில் நீண்ட காலமாக பணியாற்றியுள்ளார்",
+        options: ["A. உண்மை", "B. தவறு"],
+        answer: "A. உண்மை"
+      },
+      {
+        question: "5. தாமரையின் பாடல்கள் எளிய வார்த்தைகள் கொண்டவை அல்ல. அவர் எப்போதும் கடினமான தமிழ் பயன்படுத்துகிறார்",
+        options: ["A. உண்மை", "B. தவறு"],
+        answer: "B. தவறு"
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+
+    quizData.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.innerText = q.question;
+      quizContainer.appendChild(questionDiv);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.classList.add("options");
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "question" + index;
+        input.value = option;
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        optionsDiv.appendChild(label);
+      });
+
+      quizContainer.appendChild(optionsDiv);
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      quizData.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selected && selected.value === q.answer) {
+          score++;
+        }
+      });
+      document.getElementById("result").innerText = `✅ உங்கள் மதிப்பெண்: ${score} / ${quizData.length}`;
+    }
+  </script>
+
+</body>
+</html>
